@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'constants.dart';
+import 'questionClass.dart';
+import 'test_data.dart';
 
 class SoruSayfasi extends StatefulWidget {
   const SoruSayfasi({Key? key}) : super(key: key);
@@ -11,50 +13,8 @@ class SoruSayfasi extends StatefulWidget {
 
 class _SoruSayfasiState extends State<SoruSayfasi> {
   List<Widget> answer = [];
-  List<String> questions = [
-    "Havaya atılan bir madeni paranın tura gelme ihtimali 1/2'dir.",
-    "Q klavyede Q harfinin sağ yanında W harfi vardır",
-    "-2 çift sayıdır.",
-    "Muğla Marmara bölgesi'ndedir.",
-    "Türkiye, Birleşmiş Milletler üyesidir.",
-    "ABD, NATO üyesidir.",
-    "12 Eylül darbesi 1982 yılında gerçekleşmiştir.",
-    "Bursa, Marmara Bölgesi'ndedir.",
-    "Bütün rakamların çarpımı 0'dır.",
-    "Flört kelimesi 1 hecelidir.",
-    "Noktainazar trafik polisi anlamına gelen bir kelimedir.",
-    "Hakkari, güneydoğu anadolu bölgesi'ndedir.",
-    "Kuzey İrlanda Birleşik Krallık'a bağlıdır.",
-    "Trakta 3 heceli bir kelimedir.",
-    "Kadınlarda 23, erkeklerde 46 kromozom bulunur.",
-    "İtalya'da Bir Türk Sevdim romanındaki Türk'ün adı Mehmet'tir.",
-    "Balonla Beş Hafta kitabında gezilen kıta Asya'dır.",
-    "Uruguay'ın resmi adı Uruguay Doğu Cumhuriyeti'dir.",
-    "Su deniz seviyesinde 100 derecenin altında buharlaşabilir.",
-    "Karbonatın yapısında karbon bulunmaz",
-  ];
-  List<bool> answerthequestions = [
-    true,
-    true,
-    true,
-    false,
-    true,
-    true,
-    false,
-    true,
-    true,
-    true,
-    false,
-    false,
-    true,
-    false,
-    false,
-    true,
-    false,
-    true,
-    true,
-    false
-  ];
+  TestData test_1 = TestData();
+
   int soruIndex = 0;
   @override
   Widget build(BuildContext context) {
@@ -75,7 +35,7 @@ class _SoruSayfasiState extends State<SoruSayfasi> {
               padding: EdgeInsets.all(10),
               child: Center(
                 child: Text(
-                  questions[soruIndex],
+                  test_1.questionBank[soruIndex].questionText,
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
@@ -101,14 +61,17 @@ class _SoruSayfasiState extends State<SoruSayfasi> {
                         padding: const EdgeInsets.all(12),
                         child: ElevatedButton(
                           onPressed: () {
-                            bool trueAnswer = answerthequestions[soruIndex];
+                            bool trueAnswer =
+                                test_1.questionBank[soruIndex].questionAnswer;
                             setState(() {
-                             /* if (trueAnswer == true) {
+                              /* if (trueAnswer == true) {
                                 answer.add(kTrueAnswer);
                               } else {
                                 answer.add(kFalseAnswer);
                               }*/
-                              trueAnswer == true ? answer.add(kTrueAnswer) : answer.add(kFalseAnswer);
+                              trueAnswer == true
+                                  ? answer.add(kTrueAnswer)
+                                  : answer.add(kFalseAnswer);
                               soruIndex++;
                             });
                           },
@@ -127,14 +90,12 @@ class _SoruSayfasiState extends State<SoruSayfasi> {
                         padding: EdgeInsets.all(12),
                         child: ElevatedButton(
                           onPressed: () {
-                            bool falseAnswer = answerthequestions[soruIndex];
+                            bool falseAnswer =
+                                test_1.questionBank[soruIndex].questionAnswer;
                             setState(() {
-                              /*if (falseAnswer == false) {
-                                answer.add(kTrueAnswer);
-                              } else {
-                                answer.add(kFalseAnswer);
-                              }*/
-                              falseAnswer == false ? answer.add(kTrueAnswer) : answer.add(kFalseAnswer);
+                              falseAnswer == false
+                                  ? answer.add(kTrueAnswer)
+                                  : answer.add(kFalseAnswer);
                               soruIndex++;
                             });
                           },
