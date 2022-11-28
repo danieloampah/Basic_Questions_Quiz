@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'constants.dart';
 
-
 class SoruSayfasi extends StatefulWidget {
   const SoruSayfasi({Key? key}) : super(key: key);
 
@@ -34,8 +33,29 @@ class _SoruSayfasiState extends State<SoruSayfasi> {
     "Su deniz seviyesinde 100 derecenin altında buharlaşabilir.",
     "Karbonatın yapısında karbon bulunmaz",
   ];
-
-  int soruIndex=0;
+  List<bool> answerthequestions = [
+    true,
+    true,
+    true,
+    false,
+    true,
+    true,
+    false,
+    true,
+    true,
+    true,
+    false,
+    false,
+    true,
+    false,
+    false,
+    true,
+    false,
+    true,
+    true,
+    false
+  ];
+  int soruIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,9 +101,15 @@ class _SoruSayfasiState extends State<SoruSayfasi> {
                         padding: const EdgeInsets.all(12),
                         child: ElevatedButton(
                           onPressed: () {
+                            bool trueAnswer = answerthequestions[soruIndex];
                             setState(() {
+                             /* if (trueAnswer == true) {
+                                answer.add(kTrueAnswer);
+                              } else {
+                                answer.add(kFalseAnswer);
+                              }*/
+                              trueAnswer == true ? answer.add(kTrueAnswer) : answer.add(kFalseAnswer);
                               soruIndex++;
-                              answer.add(kTrueAnswer);
                             });
                           },
                           child: Icon(Icons.thumb_up),
@@ -101,9 +127,15 @@ class _SoruSayfasiState extends State<SoruSayfasi> {
                         padding: EdgeInsets.all(12),
                         child: ElevatedButton(
                           onPressed: () {
+                            bool falseAnswer = answerthequestions[soruIndex];
                             setState(() {
+                              /*if (falseAnswer == false) {
+                                answer.add(kTrueAnswer);
+                              } else {
+                                answer.add(kFalseAnswer);
+                              }*/
+                              falseAnswer == false ? answer.add(kTrueAnswer) : answer.add(kFalseAnswer);
                               soruIndex++;
-                              answer.add(kFalseAnswer);
                             });
                           },
                           child: Icon(Icons.thumb_down),
