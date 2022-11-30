@@ -16,15 +16,26 @@ class _SoruSayfasiState extends State<SoruSayfasi> {
   List<Widget> answer = [];
   QuestionData test_1 = QuestionData();
 
+
+  @override
+  void initState(){
+    super.initState();
+    test_1.questionBank.shuffle();
+
+  }
+
   buttonFunction(bool choiseButton) {
+    bool falseAnswer = test_1.getQuestionAnswer();
+
     if (test_1.quizFinished() == true) {
       showDialog(
           context: context,
+          barrierDismissible: false,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: new Text("Bravo Testi Geçtiniz"),
+              title: const Text("Bravo Testi Geçtiniz"),
               actions: <Widget>[
-                new ElevatedButton(
+                ElevatedButton(
                   onPressed: () {
                     setState(() {
                       answer = [];
@@ -33,7 +44,7 @@ class _SoruSayfasiState extends State<SoruSayfasi> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => LastPage(),
+                        builder: (context) =>const LastPage(),
                       ),
                     );
                   },
@@ -42,15 +53,14 @@ class _SoruSayfasiState extends State<SoruSayfasi> {
               ],
             );
           });
-    } else {
-      bool falseAnswer = test_1.getQuestionAnswer();
-      setState(() {
-        falseAnswer == choiseButton
-            ? answer.add(kTrueAnswer)
-            : answer.add(kFalseAnswer);
-        test_1.nextQuestion();
-      });
     }
+
+    setState(() {
+      falseAnswer == choiseButton
+          ? answer.add(kTrueAnswer)
+          : answer.add(kFalseAnswer);
+      test_1.nextQuestion();
+    });
   }
 
   @override

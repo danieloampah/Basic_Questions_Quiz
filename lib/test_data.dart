@@ -1,10 +1,11 @@
 import 'package:bilgi_yarismasi/lastPage.dart';
 import 'package:bilgi_yarismasi/main.dart';
+import 'package:flutter/cupertino.dart';
 import 'questionClass.dart';
 
 class QuestionData {
   int _questionIndex = 0;
-  List<Question> _questionBank = [
+  List<Question> questionBank = [
     Question(
         questionText:
             "Havaya atılan bir madeni paranın tura gelme ihtimali 1/2'dir.",
@@ -15,7 +16,7 @@ class QuestionData {
     Question(questionText: "-2 çift sayıdır.", questionAnswer: true),
     Question(
         questionText: "Muğla Marmara bölgesi'ndedir.", questionAnswer: false),
-    /*Question(
+    Question(
         questionText: "Türkiye, Birleşmiş Milletler üyesidir.",
         questionAnswer: true),
     Question(questionText: "ABD, NATO üyesidir.", questionAnswer: true),
@@ -57,27 +58,33 @@ class QuestionData {
         questionAnswer: true),
     Question(
         questionText: "Karbonatın yapısında karbon bulunmaz",
-        questionAnswer: false),*/
+        questionAnswer: false),
   ];
 
   String getQuestionText() {
-    return _questionBank[_questionIndex].questionText;
+    return questionBank[_questionIndex].questionText;
   }
 
   bool getQuestionAnswer() {
-    return _questionBank[_questionIndex].questionAnswer;
+    return questionBank[_questionIndex].questionAnswer;
   }
 
   nextQuestion() {
-    if (_questionIndex + 1 < _questionBank.length) {
+    print('nextQuestion: questionIndex: ${_questionIndex}');
+    print('nextQuestion: _questionBank.length: ${questionBank.length}');
+
+    if (_questionIndex  != questionBank.length -1 ) {
       _questionIndex++;
     }
   }
 
   bool? quizFinished(){
-    if(_questionIndex + 1 >= _questionBank.length){
+    debugPrint('questionIndex: ${_questionIndex}');
+    print('_questionBank.length: ${questionBank.length}');
+
+    if(_questionIndex == questionBank.length - 1){
       return true;
-    }else{
+    } else{
       return false;
     }
   }
