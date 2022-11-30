@@ -4,7 +4,6 @@ import 'questionClass.dart';
 
 class QuestionData {
   int _questionIndex = 0;
-  LastPage lastPage = const LastPage();
   List<Question> _questionBank = [
     Question(
         questionText:
@@ -16,7 +15,7 @@ class QuestionData {
     Question(questionText: "-2 çift sayıdır.", questionAnswer: true),
     Question(
         questionText: "Muğla Marmara bölgesi'ndedir.", questionAnswer: false),
-    Question(
+    /*Question(
         questionText: "Türkiye, Birleşmiş Milletler üyesidir.",
         questionAnswer: true),
     Question(questionText: "ABD, NATO üyesidir.", questionAnswer: true),
@@ -31,7 +30,7 @@ class QuestionData {
     Question(
         questionText: "Noktainazar trafik polisi anlamına gelen bir kelimedir.",
         questionAnswer: false),
-    /*Question(
+    Question(
         questionText: "Hakkari, güneydoğu anadolu bölgesi'ndedir.",
         questionAnswer: false),
     Question(
@@ -69,9 +68,21 @@ class QuestionData {
     return _questionBank[_questionIndex].questionAnswer;
   }
 
-  void nextQuestion() {
+  nextQuestion() {
     if (_questionIndex + 1 < _questionBank.length) {
       _questionIndex++;
     }
+  }
+
+  bool? quizFinished(){
+    if(_questionIndex + 1 >= _questionBank.length){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  void quizReset(){
+    _questionIndex = 0;
   }
 }

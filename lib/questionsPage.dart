@@ -1,6 +1,6 @@
 import 'package:bilgi_yarismasi/lastPage.dart';
+import 'package:bilgi_yarismasi/main.dart';
 import 'package:flutter/material.dart';
-
 import 'constants.dart';
 import 'questionClass.dart';
 import 'test_data.dart';
@@ -15,6 +15,43 @@ class SoruSayfasi extends StatefulWidget {
 class _SoruSayfasiState extends State<SoruSayfasi> {
   List<Widget> answer = [];
   QuestionData test_1 = QuestionData();
+
+  buttonFunction(bool choiseButton) {
+    if (test_1.quizFinished() == true) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: new Text("Bravo Testi Geçtiniz"),
+              actions: <Widget>[
+                new ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      answer = [];
+                      test_1.quizReset();
+                    });
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LastPage(),
+                      ),
+                    );
+                  },
+                  child: Text("Son Sayfaya Git"),
+                ),
+              ],
+            );
+          });
+    } else {
+      bool falseAnswer = test_1.getQuestionAnswer();
+      setState(() {
+        falseAnswer == choiseButton
+            ? answer.add(kTrueAnswer)
+            : answer.add(kFalseAnswer);
+        test_1.nextQuestion();
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +79,15 @@ class _SoruSayfasiState extends State<SoruSayfasi> {
               ),
             ),
           ),
-          ElevatedButton(onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => LastPage()),);
-          }, child: Text("Diğer Sayfaya Geçmek İçin Tıklayınız"),),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LastPage()),
+              );
+            },
+            child: Text("Diğer Sayfaya Geçmek İçin Tıklayınız"),
+          ),
           Wrap(
             //Wrap: Taşmaları önlemek amacıyla kullanılır. Taşacak olan widget'ı bir alt satıra indirir.
             spacing: 3,
@@ -64,13 +107,7 @@ class _SoruSayfasiState extends State<SoruSayfasi> {
                         padding: const EdgeInsets.all(12),
                         child: ElevatedButton(
                           onPressed: () {
-                            bool trueAnswer = test_1.getQuestionAnswer();
-                            setState(() {
-                              trueAnswer == true
-                                  ? answer.add(kTrueAnswer)
-                                  : answer.add(kFalseAnswer);
-                              test_1.nextQuestion();
-                            });
+                            buttonFunction(true);
                           },
                           child: Icon(Icons.thumb_up),
                           style: ElevatedButton.styleFrom(
@@ -87,13 +124,7 @@ class _SoruSayfasiState extends State<SoruSayfasi> {
                         padding: EdgeInsets.all(12),
                         child: ElevatedButton(
                           onPressed: () {
-                            bool falseAnswer = test_1.getQuestionAnswer();
-                            setState(() {
-                              falseAnswer == false
-                                  ? answer.add(kTrueAnswer)
-                                  : answer.add(kFalseAnswer);
-                              test_1.nextQuestion();
-                            });
+                            buttonFunction(false);
                           },
                           child: Icon(Icons.thumb_down),
                           style: ElevatedButton.styleFrom(
