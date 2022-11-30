@@ -1,10 +1,14 @@
+import 'package:bilgi_yarismasi/lastPage.dart';
+import 'package:bilgi_yarismasi/main.dart';
 import 'questionClass.dart';
 
-class TestData{
-  List<Question> questionBank = [
+class QuestionData {
+  int _questionIndex = 0;
+  LastPage lastPage = const LastPage();
+  List<Question> _questionBank = [
     Question(
         questionText:
-        "Havaya atılan bir madeni paranın tura gelme ihtimali 1/2'dir.",
+            "Havaya atılan bir madeni paranın tura gelme ihtimali 1/2'dir.",
         questionAnswer: true),
     Question(
         questionText: "Q klavyede Q harfinin sağ yanında W harfi vardır",
@@ -27,7 +31,7 @@ class TestData{
     Question(
         questionText: "Noktainazar trafik polisi anlamına gelen bir kelimedir.",
         questionAnswer: false),
-    Question(
+    /*Question(
         questionText: "Hakkari, güneydoğu anadolu bölgesi'ndedir.",
         questionAnswer: false),
     Question(
@@ -40,7 +44,7 @@ class TestData{
         questionAnswer: false),
     Question(
         questionText:
-        "İtalya'da Bir Türk Sevdim romanındaki Türk'ün adı Mehmet'tir.",
+            "İtalya'da Bir Türk Sevdim romanındaki Türk'ün adı Mehmet'tir.",
         questionAnswer: true),
     Question(
         questionText: "Balonla Beş Hafta kitabında gezilen kıta Asya'dır.",
@@ -50,11 +54,24 @@ class TestData{
         questionAnswer: true),
     Question(
         questionText:
-        "Su deniz seviyesinde 100 derecenin altında buharlaşabilir.",
+            "Su deniz seviyesinde 100 derecenin altında buharlaşabilir.",
         questionAnswer: true),
     Question(
         questionText: "Karbonatın yapısında karbon bulunmaz",
-        questionAnswer: false),
+        questionAnswer: false),*/
   ];
 
+  String getQuestionText() {
+    return _questionBank[_questionIndex].questionText;
+  }
+
+  bool getQuestionAnswer() {
+    return _questionBank[_questionIndex].questionAnswer;
+  }
+
+  void nextQuestion() {
+    if (_questionIndex + 1 < _questionBank.length) {
+      _questionIndex++;
+    }
+  }
 }

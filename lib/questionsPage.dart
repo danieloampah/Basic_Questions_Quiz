@@ -1,3 +1,4 @@
+import 'package:bilgi_yarismasi/lastPage.dart';
 import 'package:flutter/material.dart';
 
 import 'constants.dart';
@@ -13,9 +14,8 @@ class SoruSayfasi extends StatefulWidget {
 
 class _SoruSayfasiState extends State<SoruSayfasi> {
   List<Widget> answer = [];
-  TestData test_1 = TestData();
+  QuestionData test_1 = QuestionData();
 
-  int soruIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,13 +35,16 @@ class _SoruSayfasiState extends State<SoruSayfasi> {
               padding: EdgeInsets.all(10),
               child: Center(
                 child: Text(
-                  test_1.questionBank[soruIndex].questionText,
+                  test_1.getQuestionText(),
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
               ),
             ),
           ),
+          ElevatedButton(onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => LastPage()),);
+          }, child: Text("Diğer Sayfaya Geçmek İçin Tıklayınız"),),
           Wrap(
             //Wrap: Taşmaları önlemek amacıyla kullanılır. Taşacak olan widget'ı bir alt satıra indirir.
             spacing: 3,
@@ -61,18 +64,12 @@ class _SoruSayfasiState extends State<SoruSayfasi> {
                         padding: const EdgeInsets.all(12),
                         child: ElevatedButton(
                           onPressed: () {
-                            bool trueAnswer =
-                                test_1.questionBank[soruIndex].questionAnswer;
+                            bool trueAnswer = test_1.getQuestionAnswer();
                             setState(() {
-                              /* if (trueAnswer == true) {
-                                answer.add(kTrueAnswer);
-                              } else {
-                                answer.add(kFalseAnswer);
-                              }*/
                               trueAnswer == true
                                   ? answer.add(kTrueAnswer)
                                   : answer.add(kFalseAnswer);
-                              soruIndex++;
+                              test_1.nextQuestion();
                             });
                           },
                           child: Icon(Icons.thumb_up),
@@ -90,13 +87,12 @@ class _SoruSayfasiState extends State<SoruSayfasi> {
                         padding: EdgeInsets.all(12),
                         child: ElevatedButton(
                           onPressed: () {
-                            bool falseAnswer =
-                                test_1.questionBank[soruIndex].questionAnswer;
+                            bool falseAnswer = test_1.getQuestionAnswer();
                             setState(() {
                               falseAnswer == false
                                   ? answer.add(kTrueAnswer)
                                   : answer.add(kFalseAnswer);
-                              soruIndex++;
+                              test_1.nextQuestion();
                             });
                           },
                           child: Icon(Icons.thumb_down),
