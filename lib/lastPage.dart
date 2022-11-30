@@ -1,6 +1,8 @@
 import 'package:bilgi_yarismasi/main.dart';
 import 'package:flutter/material.dart';
 
+import 'StartPage.dart';
+
 class LastPage extends StatefulWidget {
   const LastPage({Key? key}) : super(key: key);
 
@@ -22,7 +24,7 @@ class _LastPageState extends State<LastPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => MainPage(),
+                    builder: (context) => StartPage(),
                   ),
                 );
               },
